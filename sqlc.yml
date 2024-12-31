@@ -1,0 +1,22 @@
+version: "2"
+sql:
+  - schema: "sql/schema"
+    queries: "sql/queries"
+    engine: "postgresql"
+    gen:
+      go:
+        out: "internal/database"
+        emit_json_tags: true
+        overrides:
+          - column: "posts.description"
+            nullable: true
+            go_type:
+              import: "github.com/guregu/null"
+              type: "String"
+              pointer: true
+          - column: "posts.published_at"
+            nullable: true
+            go_type:
+              import: "github.com/guregu/null"
+              type: "Time"
+              pointer: true
